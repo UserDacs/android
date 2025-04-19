@@ -121,10 +121,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(android.R.id.content, new DashboardFragment())
-                    .commit();
+          finish();
         });
 
 
@@ -203,15 +200,6 @@ public class MyAccountActivity extends AppCompatActivity {
         return sharedPreferences.getString("auth_token", null);
     }
 
-    @Override
-    public void onBackPressed() {
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(android.R.id.content, new DashboardFragment())
-                .commit();
-
-        super.onBackPressed();
-    }
 
 }

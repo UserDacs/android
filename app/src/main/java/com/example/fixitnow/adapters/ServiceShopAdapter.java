@@ -1,28 +1,28 @@
 package com.example.fixitnow.adapters;
 
 
-import android.app.Activity;
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fixitnow.LoginActivity;
-import com.example.fixitnow.MainActivity;
 import com.example.fixitnow.R;
 import com.example.fixitnow.ServiceViewDetailsActivity;
+import com.example.fixitnow.models.ServiceListModel;
 
 import java.util.List;
 
 public class ServiceShopAdapter extends RecyclerView.Adapter<ServiceShopAdapter.ViewHolder> {
-    List<String> services;
+    List<ServiceListModel> services;
 
-    public ServiceShopAdapter(List<String> services) {
+    public ServiceShopAdapter(List<ServiceListModel> services) {
         this.services = services;
     }
 
@@ -43,18 +43,17 @@ public class ServiceShopAdapter extends RecyclerView.Adapter<ServiceShopAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ServiceListModel model = services.get(position);
+        holder.txtService.setText(model.serviceName);
 
-        holder.txtService.setText(services.get(position));
         holder.txtService.setOnClickListener(v -> {
-//            Toast.makeText(v.getContext(), "Clicked: " + services.get(position), Toast.LENGTH_SHORT).show();
+//            Log.d("SERVICE_ID", "Clicked serviceId: " + model.serviceId);
+//
+//            Log.d("SERVICE_ID", "Clicked serviceId: " + model.serviceName);
 
             Intent intent = new Intent(v.getContext(), ServiceViewDetailsActivity.class);
+            intent.putExtra("service_id", Integer.parseInt(model.serviceId));
             v.getContext().startActivity(intent);
-
-//            // Finish the current activity safely
-//            if (v.getContext() instanceof Activity) {
-//                ((Activity) v.getContext()).finish();
-//            }
         });
     }
 

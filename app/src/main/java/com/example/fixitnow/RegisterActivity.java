@@ -158,9 +158,9 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
 
                             // Redirect to MainActivity
-//                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             Toast.makeText(RegisterActivity.this, "Registration failed: " + result, Toast.LENGTH_LONG).show();

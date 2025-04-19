@@ -25,10 +25,22 @@
         android:theme="@style/Theme.FixItNow"
         tools:targetApi="31">
         <activity
+            android:name=".shopactivity.MyServicesActivity"
+            android:exported="false" android:theme="@style/Theme.FixItNow.Chat" />
+        <activity
+            android:name=".shopactivity.MyTechiniciansActivity"
+            android:exported="false" android:theme="@style/Theme.FixItNow.Chat" />
+        <activity
+            android:name=".shopactivity.ApplyActivity"
+            android:exported="false" android:theme="@style/Theme.FixItNow.Chat" />
+        <activity
+            android:name=".shopactivity.HistoryActivity"
+            android:exported="false" android:theme="@style/Theme.FixItNow.Chat" />
+        <activity
             android:name=".ShopMainDashboardActivity"
             android:exported="true"
             android:label="@string/title_activity_shop_main_dashboard"
-            android:theme="@style/Theme.FixItNow.NoActionBar"/>
+            android:theme="@style/Theme.FixItNow.NoActionBar" />
         <activity
             android:name=".ShopDashboardActivity"
             android:exported="false" />
@@ -87,13 +99,11 @@
             android:theme="@style/Theme.FixItNow.Chat" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.FixItNow.Chat" >
+            android:theme="@style/Theme.FixItNow.Chat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

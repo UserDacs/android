@@ -19,7 +19,7 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/user_ci"
+        android:icon="@drawable/baseline_density_medium_24"
         android:title="@string/title_dashboard" />
 
 

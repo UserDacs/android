@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -33,14 +34,18 @@ import com.example.fixitnow.MyAccountActivity;
 import com.example.fixitnow.R;
 import com.example.fixitnow.adapters.VolleyMultipartRequest;
 import com.example.fixitnow.databinding.FragmentDashboardBinding;
+import com.example.fixitnow.shopactivity.ApplyActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -51,7 +56,7 @@ public class DashboardFragment extends Fragment {
     private static final String PREFS_NAME = "userPrefs";
     private static final String KEY_TOKEN = "auth_token";
     private FragmentDashboardBinding binding;
-
+    private static final String KEY_USER = "user_details";
     ImageView profileImage;
 
     TextView userName;
@@ -65,9 +70,22 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
 
-        CardView cardMessenger = binding.idCardMessenger;
+        CardView cardMessenger = binding.idHelpDesk;
         CardView idMyaccount = binding.idMyaccount;
         CardView idChangePass = binding.idChangePass;
+
+        CardView idApplyShop = binding.idApplyShop;
+
+        idApplyShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPendingApplication();
+//                Intent intent = new Intent(getActivity(), ApplyActivity.class);
+//                startActivity(intent);
+            }
+        });
+
+
 
         CardView idLogout = binding.idLogout;
 
@@ -294,5 +312,140 @@ public class DashboardFragment extends Fragment {
             byteBuffer.write(buffer, 0, len);
         }
         return byteBuffer.toByteArray();
+    }
+
+
+    private void checkPendingApplication() {
+        SharedPreferences sharedPreferencess = requireActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String authToken = sharedPreferencess.getString(KEY_TOKEN, null);
+        String userJson = sharedPreferencess.getString(KEY_USER, null);
+
+        if (authToken == null || userJson == null) {
+            Toast.makeText(requireActivity(), "No user data found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            JSONObject userObject = new JSONObject(userJson);
+            int userId = userObject.getInt("id");
+            String urlStr = "http://192.168.1.104/api/v2/shop-check?user_id=" + userId;
+
+            new Thread(() -> {
+                try {
+                    URL url = new URL(urlStr);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Authorization", "Bearer " + authToken);
+                    conn.setRequestProperty("Accept", "application/json");
+
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream = conn.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        StringBuilder result = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            result.append(line);
+                        }
+
+                        JSONArray shopArray = new JSONArray(result.toString());
+                        if (shopArray.length() > 0) {
+                            JSONObject shop = shopArray.getJSONObject(0);
+                            String status = shop.getString("status");
+                            boolean isPending = false;
+                            if ("pending".equalsIgnoreCase(status)) {
+                                isPending = true;
+                                requireActivity().runOnUiThread(() -> showPendingDialog());
+                            }else{
+                                Intent intent = new Intent(getActivity(), ApplyActivity.class);
+                                startActivity(intent);
+                            }
+
+                            handlePendingStatus(isPending);
+                        }
+
+                        conn.disconnect();
+                    } else {
+                        Log.e(TAG, "Failed to fetch shop data: HTTP " + responseCode);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    requireActivity().runOnUiThread(() -> Toast.makeText(requireActivity(), "Error checking application: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                }
+            }).start();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    private void showPendingDialog () {
+        new AlertDialog.Builder(requireActivity())
+                .setTitle("Application Pending")
+                .setMessage("You have successfully submitted your application as a shop owner.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
+                .show();
+    }
+
+    public boolean handlePendingStatus(boolean isPending) {
+
+        return isPending; // Returns true if pending, false otherwise
+    }
+
+
+    public boolean isApplicationPending() {
+        try {
+            SharedPreferences sharedPreferencess = requireActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            String authToken = sharedPreferencess.getString(KEY_TOKEN, null);
+            String userJson = sharedPreferencess.getString(KEY_USER, null);
+
+            if (authToken == null || userJson == null) {
+                Toast.makeText(requireActivity(), "No user data found", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            JSONObject userObject = new JSONObject(userJson);
+            int userId = userObject.getInt("id");
+
+
+            String urlStr = "http://192.168.1.104/api/v2/shop-check?user_id=" + userId;
+            URL url = new URL(urlStr);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Bearer " + authToken);
+            conn.setRequestProperty("Accept", "application/json");
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream inputStream = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+                JSONArray shopArray = new JSONArray(result.toString());
+                if (shopArray.length() > 0) {
+                    JSONObject shop = shopArray.getJSONObject(0);
+                    String status = shop.getString("status");
+                    conn.disconnect();
+
+                    return true; // Returns true if status is 'pending', false otherwise
+                }
+
+                conn.disconnect();
+            } else {
+                Log.e(TAG, "Failed to fetch shop data: HTTP " + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // Default to false if no shop found or an error occurs
     }
 }

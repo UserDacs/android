@@ -1,0 +1,67 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/shopName"
+            android:hint="Shop Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/shopAddress"
+            android:hint="Shop Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/shopDetails"
+            android:hint="Shop Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Map Fragment for selecting location -->
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
+        <Button
+            android:id="@+id/btnChooseImage"
+            android:text="Choose Shop Image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/imgShopImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" android:visibility="gone"/>
+
+        <Button android:id="@+id/btnChooseID" android:text="Choose National ID"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <ImageView android:id="@+id/imgID"
+            android:layout_width="match_parent" android:layout_height="200dp"
+            android:scaleType="centerCrop" android:visibility="gone"/>
+
+        <Button android:id="@+id/btnChooseCOR" android:text="Choose COR"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <ImageView android:id="@+id/imgCOR"
+            android:layout_width="match_parent" android:layout_height="200dp"
+            android:scaleType="centerCrop" android:visibility="gone"/>
+
+        <Button android:id="@+id/btnSubmit" android:text="Create Shop"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>

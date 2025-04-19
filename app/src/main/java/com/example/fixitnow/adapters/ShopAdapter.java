@@ -51,7 +51,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
         holder.txtShopName.setText(shop.shopName);
         holder.txtRatings.setText(shop.rating);
-        holder.txtLocation.setText(shop.location);
+
+        String loc = shop.location;
+        if (loc.length() > 60) {
+            loc = loc.substring(0, 60) + "...";
+        }
+
+        holder.txtLocation.setText(loc);
+
 
         // Service RecyclerView
         holder.recyclerServices.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
