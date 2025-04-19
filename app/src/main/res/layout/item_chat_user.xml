@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/user_ci"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_bg" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/userImage"
+        android:layout_marginStart="10dp"
+        android:text="David"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/lastMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userName"
+        android:layout_toEndOf="@id/userImage"
+        android:layout_marginStart="20dp"
+        android:text="GET TO WORK!"
+        android:textSize="14sp"
+        android:textColor="#888"
+        android:ellipsize="end"
+        android:maxLines="1"    />
+
+    <TextView
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="8:31 PM"
+        android:textSize="12sp"
+        android:textColor="#888" />
+
+</RelativeLayout>

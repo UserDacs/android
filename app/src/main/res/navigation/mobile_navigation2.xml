@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/nav_service">
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_home"-->
+<!--        android:name="com.example.fixitnow.ui.home.HomeFragment"-->
+<!--        android:label="@string/menu_home"-->
+<!--        tools:layout="@layout/fragment_home" />-->
+
+    <fragment
+        android:id="@+id/nav_service"
+        android:name="com.example.fixitnow.ui.shop.service.ServiceFragment"
+        android:label="Service"
+        tools:layout="@layout/fragment_shop_service" />
+
+
+    <fragment
+        android:id="@+id/nav_technician"
+        android:name="com.example.fixitnow.ui.shop.technician.TechnicianFragment"
+        android:label="Technician"
+        tools:layout="@layout/fragment_technician" />
+
+    <fragment
+        android:id="@+id/nav_booking"
+        android:name="com.example.fixitnow.ui.shop.booking.BookingFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_booking" />
+
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.fixitnow.ui.shop.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_history" />
+
+</navigation>

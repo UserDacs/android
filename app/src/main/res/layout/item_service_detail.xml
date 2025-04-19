@@ -1,0 +1,122 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:backgroundTint="#FFFFFF"
+    android:elevation="2dp"
+    android:background="@drawable/bg_service_card">
+
+    <ImageView
+        android:id="@+id/imgService"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:src="@android:drawable/ic_menu_camera"
+        android:background="@drawable/circle_bg"
+        android:scaleType="centerCrop" />
+
+    <!-- Service Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/txtServiceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Basic Haircut"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtShopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Barber Bros."
+            android:textSize="13sp"
+            android:textColor="#555" />
+
+        <TextView
+            android:id="@+id/txtTechnician"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Technicians: 2"
+            android:textSize="13sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Stars -->
+            <TextView
+                android:id="@+id/txtRatings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="★★★★★"
+                android:textSize="13sp"
+                android:textColor="#f39c12" />
+
+            <!-- Text sa kanan ng stars -->
+            <TextView
+                android:id="@+id/txtRatingtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/txtRatings"
+                android:layout_marginStart="8dp"
+                android:text="sdsd"
+                android:textSize="13sp"
+                android:textColor="#7C7B7B" />
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="8dp">
+
+        <!-- Details Button -->
+        <ImageButton
+            android:id="@+id/btnViewDetails"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/view_white"
+            android:contentDescription="View Details"
+            android:backgroundTint="#2196F3"
+            android:background="@drawable/rounded_icon_button"
+            android:scaleType="centerInside"
+            android:padding="6dp"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Book Button -->
+        <ImageButton
+            android:id="@+id/btnBookNow"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/booknow_white"
+            android:contentDescription="Book Now"
+            android:backgroundTint="#4CAF50"
+            android:background="@drawable/rounded_icon_button"
+            android:scaleType="centerInside"
+            android:padding="6dp"/>
+    </LinearLayout>
+
+</LinearLayout>

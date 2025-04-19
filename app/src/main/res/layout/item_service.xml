@@ -1,0 +1,9 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txtService"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sample Service"
+    android:background="@drawable/bg_service_chip"
+    android:padding="8dp"
+    android:layout_margin="4dp"
+    android:textColor="#000000" />
