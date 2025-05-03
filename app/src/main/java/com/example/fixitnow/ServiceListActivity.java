@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.example.fixitnow.utils.Constants;
 
 public class ServiceListActivity extends AppCompatActivity {
 
@@ -39,8 +40,8 @@ public class ServiceListActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
 
-    private static final String CATEGORY_URL = "http://192.168.1.104/api/v2/category-list";
-    private static final String SERVICE_URL = "http://192.168.1.104/api/v2/service-list";
+    private static final String CATEGORY_URL = Constants.getFullApiUrl("/api/v2/category-list"); 
+    private static final String SERVICE_URL = Constants.getFullApiUrl("/api/v2/service-list");
 
 
     @Override
@@ -114,7 +115,7 @@ public class ServiceListActivity extends AppCompatActivity {
                             String technicianName = obj.getString("technician_fullname");
                             double rating = obj.isNull("average_rating") ? 0.0 : obj.getDouble("average_rating");
 
-                            String imageUrl = "http://192.168.1.104"+obj.getString("service_image_path"); // adjust key as needed
+                            String imageUrl = Constants.getFullApiUrl(obj.getString("service_image_path"));
 
 
                             ServiceModel service = new ServiceModel(serviceName, shopName, technicianName, rating, imageUrl,serviceId);

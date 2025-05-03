@@ -24,6 +24,7 @@ import com.example.fixitnow.ui.dashboard.DashboardFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.example.fixitnow.utils.Constants;
 
 public class MyAccountActivity extends AppCompatActivity {
     EditText etFirstName, etLastName, etPhone, etEmail, etStreet, etCity, etState, etZip;
@@ -129,7 +130,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
     private void updateAccount(String userId, String firstName, String lastName, String email,
                                String phone, String street, String city, String state, String zip) {
-        String url = "http://192.168.1.104/api/update-account";
+        String url = Constants.getFullApiUrl("/api/update-account");
 
         JSONObject jsonBody = new JSONObject();
         try {

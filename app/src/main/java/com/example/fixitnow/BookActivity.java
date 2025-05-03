@@ -56,6 +56,8 @@ import androidx.appcompat.widget.SearchView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.fixitnow.utils.Constants;
+
 
 public class BookActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -162,7 +164,7 @@ public class BookActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             }
 
-            String url = "http://192.168.1.104/api/v2/bookings";
+            String url = Constants.getFullApiUrl("/api/v2/bookings");
 
             JSONObject postData = new JSONObject();
             try {
@@ -331,7 +333,7 @@ public class BookActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void fetchServiceDetails(int serviceId, String authTokens) {
-        String url = "http://192.168.1.104/api/v2/service-list?service_id=" + serviceId;
+        String url = Constants.getFullApiUrl("/api/v2/service-list?service_id=" + serviceId);
         Log.e(TAG, "❌ url : " + url);
         Log.e(TAG, "❌ authTokens : " + authTokens);
 
@@ -358,7 +360,7 @@ public class BookActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.d(TAG, "✅ Image Path: " + imagePath);
                             Log.d(TAG, "✅ Technician: " + technicianFullName);
 
-                            String _path = "http://192.168.1.104"+imagePath;
+                            String _path = Constants.getFullApiUrl(imagePath);
 
                             double lt = Double.parseDouble(service.getString("shop_lat"));
                             double lo = Double.parseDouble(service.getString("shop_long"));

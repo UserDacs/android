@@ -27,6 +27,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import com.example.fixitnow.utils.Constants;
+
 public class ChangePasswordActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -86,7 +88,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             new Thread(() -> {
                 try {
-                    URL url = new URL("http://192.168.1.104/api/v2/change-password");
+                    String endPoint = Constants.getFullApiUrl("/api/v2/change-password");
+                    URL url = new URL(endPoint);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Authorization", "Bearer " + getUserToken());

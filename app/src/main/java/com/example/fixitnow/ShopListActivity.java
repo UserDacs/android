@@ -30,6 +30,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.fixitnow.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -89,7 +90,7 @@ public class ShopListActivity extends AppCompatActivity {
     }
 
     private void fetchShopData() {
-        String url = "http://192.168.1.104/api/v2/shop-list";
+        String url = Constants.getFullApiUrl("/api/v2/shop-list");
         String token = sharedPreferences.getString("auth_token", "");
 
         RequestQueue queue = Volley.newRequestQueue(this);

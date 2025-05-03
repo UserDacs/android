@@ -41,6 +41,8 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import com.example.fixitnow.utils.Constants;
+
 public class ChatActivity extends AppCompatActivity {
 
     private LinearLayout messageContainer;
@@ -77,7 +79,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private String user_id = "";
 
-    private String IMAGE_URL = "http://192.168.1.104";
 
     ProgressBar progressBar;
 
@@ -237,7 +238,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initSocket() {
         try {
-            mSocket = IO.socket("http://192.168.1.104:3000");
+            String sc = Constants.getSocketUrl();
+            mSocket = IO.socket(sc);
             mSocket.connect();
 
             mSocket.on(Socket.EVENT_CONNECT, args -> Log.d(TAG, "✅ Connected to Socket.IO server"));
@@ -257,7 +259,7 @@ public class ChatActivity extends AppCompatActivity {
             if (receivedId == senderId) {
                 removeTypingIndicator();
                 String msg = data.getString("message");
-                addBubble(msg, false,IMAGE_URL + data.getString("image_path"));
+                addBubble(msg, false,Constants.getFullApiUrl(data.getString("image_path")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -279,7 +281,7 @@ public class ChatActivity extends AppCompatActivity {
             // Log the typing information
             Log.d(TAG, "✏️ " + userId + " is typing: " + typingData);
 
-            String fullpath = IMAGE_URL + image_pa;
+            String fullpath = Constants.getFullApiUrl(image_pa);
 
             // Show typing indicator
             showTypingIndicator(fullpath);
@@ -332,8 +334,8 @@ public class ChatActivity extends AppCompatActivity {
     private void emitStopTyping() {
         try {
             JSONObject typingData = new JSONObject();
-            typingData.put("sender_id", senderId);
-            typingData.put("receiver_id", receiverId);
+            typingData.put("sender_id", 2);
+            typingData.put("receiver_id", 1);
             mSocket.emit("stop-typing", typingData);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -393,7 +395,7 @@ public class ChatActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE); // ⬅️ Show spinner before request starts
 
         String token = sharedPreferences.getString(KEY_TOKEN, "");
-        String url = "http://192.168.1.104/api/v2/message/conversation/" + user_id;
+        String url =  Constants.getFullApiUrl("/api/v2/message/conversation/"+ user_id);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -408,7 +410,7 @@ public class ChatActivity extends AppCompatActivity {
                             String messageText = messageObj.getString("message");
                             boolean isSender = messageObj.getBoolean("user_message_position");
                             String time = messageObj.getString("created_at_human");
-                            String image = "http://192.168.1.104" + messageObj.getString("sender_image");
+                            String image = Constants.getFullApiUrl(messageObj.getString("sender_image"));
 
                             addBubble(messageText, isSender, image);
                         }
@@ -448,7 +450,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessageToServer(String message) {
-        String url = "http://192.168.1.104/api/v2/message/send";
+        String url = Constants.getFullApiUrl("/api/v2/message/send");
         String token = sharedPreferences.getString(KEY_TOKEN, "");
 
         if (token == null || token.isEmpty()) {
@@ -470,7 +472,7 @@ public class ChatActivity extends AppCompatActivity {
                             JSONObject userObject = new JSONObject(userJson);
 
 
-                            addBubble(sentMessage, true,IMAGE_URL + userObject.getString("image_path"));
+                            addBubble(sentMessage, true, Constants.getFullApiUrl(userObject.getString("image_path")));
                             editTextMessage.setText("");
                         } else {
                             Toast.makeText(this, "Message failed to send.", Toast.LENGTH_SHORT).show();

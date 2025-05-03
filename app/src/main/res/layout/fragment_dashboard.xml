@@ -301,24 +301,27 @@
             app:cardElevation="6dp"
             app:cardCornerRadius="12dp"
             app:cardBackgroundColor="#f1f1f1">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:padding="16dp">
+
                 <ImageView
-                    android:src="@drawable/ic_logout"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_logout" />
+
                 <TextView
                     android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Logout"
-                    android:textSize="16sp"
                     android:textColor="#212121"
-                    android:layout_gravity="center_vertical" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

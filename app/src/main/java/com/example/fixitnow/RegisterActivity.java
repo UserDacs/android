@@ -28,6 +28,8 @@ import java.util.Objects;
 
 import okhttp3.*;
 
+import com.example.fixitnow.utils.Constants;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 100;
@@ -39,7 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etFirstname, etLastname, etEmail, etPhone, etPassword, etConfirmPassword;
     Button registerBtn;
 
-    private final String REGISTER_URL = "http://192.168.1.104/api/register"; // Replace with actual URL
+    
+    private final String REGISTER_URL = Constants.getFullApiUrl("/api/register");
 
     private static final String PREFS_NAME = "userPrefs";
     private static final String KEY_TOKEN = "auth_token";

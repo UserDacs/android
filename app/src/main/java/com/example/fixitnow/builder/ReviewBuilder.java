@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.fixitnow.R;
+import com.example.fixitnow.utils.Constants;
 
 
 public class ReviewBuilder {
@@ -21,9 +22,11 @@ public class ReviewBuilder {
         ImageView reviewerImage = view.findViewById(R.id.reviewerImage);
         LinearLayout ratingStars = view.findViewById(R.id.ratingStars);
 
+        String endPoint = Constants.getFullApiUrl(imagePath);
+
         reviewerName.setText(name);
         reviewContent.setText(comment);
-        Glide.with(context).load("http://192.168.1.104" + imagePath).into(reviewerImage);
+        Glide.with(context).load(endPoint).into(reviewerImage);
 
         ratingStars.removeAllViews();
         int fullStars = (int) rating;

@@ -25,6 +25,8 @@ import com.example.fixitnow.models.Booking;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.fixitnow.utils.Constants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,7 +93,7 @@ public class BookingsFragment extends Fragment {
         JSONObject userObject = new JSONObject(_userJson);
 
 
-        String url = "http://192.168.1.104/api/v2/bookings-show?customer_id="+userObject.optString("id");
+        String url = Constants.getFullApiUrl("/api/v2/bookings-show?customer_id="+userObject.optString("id"));
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -104,7 +106,7 @@ public class BookingsFragment extends Fragment {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("service_id");
                             String name = obj.getString("service_name");
-                            String image = "http://192.168.1.104" + obj.getString("service_image_path");
+                            String image = Constants.getFullApiUrl(obj.getString("service_image_path"));
 
                             String fullname = obj.getString("technician_firstname") + " " + obj.getString("technician_lastname");
                             String booking_duration = obj.getString("booking_duration");

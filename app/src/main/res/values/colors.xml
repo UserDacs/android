@@ -17,4 +17,7 @@
 
     <!-- Text color for ActionBar -->
     <color name="toolbar_text_color">#FFFFFF</color> <!-- White color -->
+
+
+    <color name="my_button_color">#FF4081</color>
 </resources>

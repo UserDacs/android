@@ -21,11 +21,12 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.example.fixitnow.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
-    private static final String API_URL = "http://192.168.1.104/api/login";
+    private static final String API_URL = Constants.getFullApiUrl("/api/login");;
     private static final String PREFS_NAME = "userPrefs";
     private static final String KEY_TOKEN = "auth_token";
     private static final String KEY_USER = "user_details";

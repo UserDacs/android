@@ -40,6 +40,9 @@ import java.util.HashMap;
 import java.util.Map;
 import android.content.SharedPreferences;
 
+import com.example.fixitnow.utils.Constants;
+import com.google.android.material.appbar.MaterialToolbar;
+
 public class ApplyActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final int PICK_IMAGE_SHOP = 1;
     private static final int PICK_IMAGE_ID = 2;
@@ -91,6 +94,16 @@ public class ApplyActivity extends AppCompatActivity implements OnMapReadyCallba
         imgShopImage = findViewById(R.id.imgShopImage);
         imgID = findViewById(R.id.imgID);
         imgCOR = findViewById(R.id.imgCOR);
+
+        MaterialToolbar toolbar = findViewById(R.id.topBar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                onBackPressed();
+            }
+        });
 
         btnChooseImage.setOnClickListener(v -> pickImage(PICK_IMAGE_SHOP));
         btnChooseID.setOnClickListener(v -> pickImage(PICK_IMAGE_ID));
@@ -194,7 +207,7 @@ public class ApplyActivity extends AppCompatActivity implements OnMapReadyCallba
                 String boundary = "===" + System.currentTimeMillis() + "===";
                 String LINE_FEED = "\r\n";
                 String charset = "UTF-8";
-                String requestURL = "http://192.168.1.104/api/v2/shop-create";
+                String requestURL = Constants.getFullApiUrl("/api/v2/shop-create");
 
                 try {
                     URL url = new URL(requestURL);

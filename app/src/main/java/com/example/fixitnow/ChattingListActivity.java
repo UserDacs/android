@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.example.fixitnow.utils.Constants;
 
 public class ChattingListActivity extends AppCompatActivity {
 
@@ -34,7 +35,7 @@ public class ChattingListActivity extends AppCompatActivity {
     private ChatUserAdapter adapter;
     private SharedPreferences sharedPreferences;
 
-    private static final String API_URL = "http://192.168.1.104/api/v2/message/constac";  // API URL
+    private static final String API_URL = Constants.getFullApiUrl("/api/v2/message/constac");
     private static final String PREFS_NAME = "userPrefs";
     private static final String KEY_TOKEN = "auth_token";
 
@@ -107,7 +108,7 @@ public class ChattingListActivity extends AppCompatActivity {
                                 String userName = message.optString("user_name");
                                 String messageContent = message.optString("message_content");
                                 String messageTime = message.optString("created_at_human");
-                                String userImagePath = "http://192.168.1.104" + message.optString("user_image_path");
+                                String userImagePath = Constants.getFullApiUrl(message.optString("user_image_path"));
 
                                 // Create a new ChatUser object and add it to the list
                                 ChatUser chatUser = new ChatUser(userName, messageContent, messageTime, userImagePath,user_id);

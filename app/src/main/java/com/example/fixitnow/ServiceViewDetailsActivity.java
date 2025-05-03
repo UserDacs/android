@@ -27,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.fixitnow.BookActivity;
 import com.example.fixitnow.R;
 import com.example.fixitnow.builder.ReviewBuilder;
-
+import com.example.fixitnow.utils.Constants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +77,7 @@ public class ServiceViewDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchServiceDetails(int serviceId, String token) {
-        String url = "http://192.168.1.104/api/v2/service-list?service_id=" + serviceId;
+        String url = Constants.getFullApiUrl("/api/v2/service-list?service_id=" + serviceId);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -90,7 +90,7 @@ public class ServiceViewDetailsActivity extends AppCompatActivity {
                         String description = service.getString("service_description");
                         String price = service.getString("price");
                         String imagePath = service.getString("service_image_path");
-                        String imageUrl = "http://192.168.1.104" + imagePath;
+                        String imageUrl = Constants.getFullApiUrl(imagePath);
 
                         TextView titleView = findViewById(R.id.textViewServiceTitle);
                         TextView descView = findViewById(R.id.textViewServiceDesc);
@@ -159,7 +159,7 @@ public class ServiceViewDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchServiceReviews(int serviceId, String token) {
-        String url = "http://192.168.1.104/api/v2/comment-list?service_id=" + serviceId;
+        String url = Constants.getFullApiUrl("/api/v2/comment-list?service_id="  + serviceId);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

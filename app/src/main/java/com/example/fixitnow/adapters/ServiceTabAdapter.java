@@ -15,6 +15,8 @@ import com.example.fixitnow.R;
 import com.example.fixitnow.ServiceViewDetailsActivity;
 import com.example.fixitnow.models.ServiceItem;
 
+import com.example.fixitnow.utils.Constants;
+
 import java.util.List;
 
 public class ServiceTabAdapter {
@@ -47,7 +49,7 @@ public class ServiceTabAdapter {
             nameText.setText(name);
 
             // Load image (using Glide for best performance)
-            String fullImageUrl = "http://192.168.1.104" + item.getImagePath();
+            String fullImageUrl = Constants.getFullApiUrl(item.getImagePath());
             Glide.with(context).load(fullImageUrl).placeholder(R.drawable.ic_launcher_foreground).into(imageView);
 
             idSer.setOnClickListener(new View.OnClickListener() {

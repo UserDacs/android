@@ -29,6 +29,8 @@ import com.example.fixitnow.adapters.ServiceTabAdapter;
 import com.example.fixitnow.databinding.FragmentHomeBinding;
 import com.example.fixitnow.models.ServiceItem;
 
+import com.example.fixitnow.utils.Constants;
+
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -98,7 +100,7 @@ public class HomeFragment extends Fragment {
 
     private void fetchServices() {
         String token = sharedPreferences.getString("auth_token", "");
-        String url = "http://192.168.1.104/api/v2/service-list";
+        String url = Constants.getFullApiUrl("/api/v2/service-list");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 

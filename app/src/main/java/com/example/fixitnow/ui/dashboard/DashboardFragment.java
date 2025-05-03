@@ -51,6 +51,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.fixitnow.shopactivity.HistoryActivity;
+import com.example.fixitnow.shopactivity.MyServicesActivity;
+import com.example.fixitnow.shopactivity.MyTechiniciansActivity;
+import com.example.fixitnow.utils.Constants;
+
 public class DashboardFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "userPrefs";
@@ -76,18 +81,48 @@ public class DashboardFragment extends Fragment {
 
         CardView idApplyShop = binding.idApplyShop;
 
+        CardView idHistory = binding.idHistory;
+        CardView idMyTechnician = binding.idMyTechnician;
+        CardView idMyServices = binding.idMyServices;
+
+        CardView idLogout = binding.idLogout;
+
+        idHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        idMyTechnician.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyTechiniciansActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        idMyServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyServicesActivity.class);
+                startActivity(intent);
+            }
+        });
+
         idApplyShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPendingApplication();
-//                Intent intent = new Intent(getActivity(), ApplyActivity.class);
-//                startActivity(intent);
+//                checkPendingApplication();
+                Intent intent = new Intent(getActivity(), ApplyActivity.class);
+                startActivity(intent);
             }
         });
 
 
 
-        CardView idLogout = binding.idLogout;
+
 
         idLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +170,7 @@ public class DashboardFragment extends Fragment {
         try {
             JSONObject userObject = new JSONObject(userJson);
             Log.d(TAG, "✅ Technician: " + userObject);
-            String _image_path = "http://192.168.1.104"+userObject.optString("image_path");
+            String _image_path = Constants.getFullApiUrl(userObject.optString("image_path"));
 //            profileImage.setImageResource(_image_path);
             // Load image using Glide
             Glide.with(requireContext())
@@ -235,7 +270,10 @@ public class DashboardFragment extends Fragment {
             new Thread(() -> {
                 try {
                     String boundary = "Boundary-" + System.currentTimeMillis();
-                    URL url = new URL("http://192.168.1.104/api/update-profile");
+
+                    String endPoint = Constants.getFullApiUrl("/api/update-profile");
+
+                    URL url = new URL(endPoint);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setUseCaches(false);
@@ -283,7 +321,7 @@ public class DashboardFragment extends Fragment {
 
                         requireActivity().runOnUiThread(() -> {
                             sharedPreferences.edit().putString("user_details", updatedUser.toString()).apply();
-                            String imageUrl = "http://192.168.1.104" + updatedUser.optString("image_path");
+                            String imageUrl =  Constants.getFullApiUrl(updatedUser.optString("image_path"));
                             Glide.with(requireContext())
                                     .load(imageUrl)
                                     .placeholder(R.drawable.avatar)
@@ -328,7 +366,7 @@ public class DashboardFragment extends Fragment {
         try {
             JSONObject userObject = new JSONObject(userJson);
             int userId = userObject.getInt("id");
-            String urlStr = "http://192.168.1.104/api/v2/shop-check?user_id=" + userId;
+            String urlStr = Constants.getFullApiUrl("/api/v2/shop-check?user_id=" + userId);
 
             new Thread(() -> {
                 try {
@@ -412,7 +450,7 @@ public class DashboardFragment extends Fragment {
             int userId = userObject.getInt("id");
 
 
-            String urlStr = "http://192.168.1.104/api/v2/shop-check?user_id=" + userId;
+            String urlStr = Constants.getFullApiUrl("/api/v2/shop-check?user_id=" + userId);
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");

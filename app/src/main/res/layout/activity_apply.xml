@@ -1,67 +1,164 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_pastel_shapes"
+    tools:context=".shopactivity.ApplyActivity">
 
-    <LinearLayout
-        android:padding="16dp"
-        android:orientation="vertical"
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/shopName"
-            android:hint="Shop Name"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            app:navigationIcon="@drawable/baseline_arrow_back_ios_24"
+            app:title="Apply Shop"
+            app:titleCentered="false"
+            app:titleTextColor="@color/black" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <EditText
-            android:id="@+id/shopAddress"
-            android:hint="Shop Address"
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <EditText
-            android:id="@+id/shopDetails"
-            android:hint="Shop Details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <!-- Shop Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shopNameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Shop Name"
+                app:startIconDrawable="@drawable/baseline_storefront_24">
 
-        <!-- Map Fragment for selecting location -->
-        <fragment
-            android:id="@+id/mapFragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/shopName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnChooseImage"
-            android:text="Choose Shop Image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <!-- Shop Address -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shopAddressLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Shop Address"
+                app:startIconDrawable="@drawable/baseline_location_on_24">
 
-        <ImageView
-            android:id="@+id/imgShopImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop" android:visibility="gone"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/shopAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button android:id="@+id/btnChooseID" android:text="Choose National ID"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <!-- Shop Details -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shopDetailsLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Shop Details"
+                app:startIconDrawable="@drawable/baseline_description_24">
 
-        <ImageView android:id="@+id/imgID"
-            android:layout_width="match_parent" android:layout_height="200dp"
-            android:scaleType="centerCrop" android:visibility="gone"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/shopDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:minLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button android:id="@+id/btnChooseCOR" android:text="Choose COR"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <!-- Map -->
+            <fragment
+                android:id="@+id/mapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="16dp" />
 
-        <ImageView android:id="@+id/imgCOR"
-            android:layout_width="match_parent" android:layout_height="200dp"
-            android:scaleType="centerCrop" android:visibility="gone"/>
+            <!-- Upload Buttons and Previews -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChooseImage"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Shop Image"
+                app:icon="@drawable/baseline_image_24" />
 
-        <Button android:id="@+id/btnSubmit" android:text="Create Shop"
-            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/imgShopImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
 
-    </LinearLayout>
-</ScrollView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChooseID"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Choose National ID"
+                app:icon="@drawable/baseline_person_24" />
+
+            <ImageView
+                android:id="@+id/imgID"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChooseCOR"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Choose COR"
+                app:icon="@drawable/baseline_folder_24" />
+
+            <ImageView
+                android:id="@+id/imgCOR"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <!-- Submit Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Create Shop" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
