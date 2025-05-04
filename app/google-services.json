@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100501139484",
+    "project_id": "realtimenoti-387d2",
+    "storage_bucket": "realtimenoti-387d2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100501139484:android:87cf8c09aaf2574d9f2fd9",
+        "android_client_info": {
+          "package_name": "com.example.fixitnow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtZ8wQ1R10-W0Y0TmVgMNeqYlgUnmX6lE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

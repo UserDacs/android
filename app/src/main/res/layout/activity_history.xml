@@ -8,16 +8,16 @@
     tools:context=".shopactivity.HistoryActivity">
 
     <!-- Top Search Bar -->
+    <!-- Top App Bar -->
     <LinearLayout
-        android:id="@+id/idtop"
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_marginBottom="5dp"
         android:background="#FFFFFF"
         android:elevation="4dp"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
         tools:ignore="MissingConstraints">
 
         <!-- Back Button -->
@@ -25,30 +25,34 @@
             android:id="@+id/btn_back"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@drawable/baseline_arrow_back_ios_24"
             android:background="@android:color/transparent"
             android:contentDescription="Back"
             android:padding="8dp"
+            android:src="@drawable/baseline_arrow_back_ios_24"
             app:tint="@android:color/black" />
 
-        <!-- Search Text -->
-        <EditText
+        <!-- Spacer -->
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search services here"
-            android:padding="8dp"
-            android:background="@drawable/search_edittext_bg"/>
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
-        <!-- Search Button -->
-        <ImageButton
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/ic_search"
-            android:background="@drawable/bg_search_icon"
-            android:contentDescription="Search"
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTopBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="8dp"
-            app:tint="@null" />
+            android:text="History"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <!-- RecyclerView for History -->
@@ -58,7 +62,7 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/idtop"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

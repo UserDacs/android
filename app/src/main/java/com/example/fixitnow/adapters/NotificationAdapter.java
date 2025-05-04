@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fixitnow.R;
 import com.example.fixitnow.models.Notification;
 
@@ -26,7 +27,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.notification_item, parent, false);  // Assuming notification_item.xml exists
+                .inflate(R.layout.notification_item, parent, false);
         return new NotificationViewHolder(view);
     }
 
@@ -36,7 +37,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.name.setText(notification.getName());
         holder.description.setText(notification.getDescription());
         holder.time.setText(notification.getTime());
-        holder.profileImage.setImageResource(notification.getProfileImageRes());
+
+        // Load image from URL using Glide
+        Glide.with(holder.itemView.getContext())
+                .load(notification.getImageUrl())
+                .placeholder(R.drawable.ic_launcher_foreground) // optional
+                .error(R.drawable.ic_launcher_foreground) // fallback if load fails
+                .into(holder.profileImage);
     }
 
     @Override
@@ -50,10 +57,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public NotificationViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.notification_name_1);  // Adjust as per ID in XML
-            description = itemView.findViewById(R.id.notification_description_1);  // Adjust as per ID in XML
-            time = itemView.findViewById(R.id.notification_time_1);  // Adjust as per ID in XML
-            profileImage = itemView.findViewById(R.id.profile_image);  // Adjust as per ID in XML
+            name = itemView.findViewById(R.id.notification_name_1);
+            description = itemView.findViewById(R.id.notification_description_1);
+            time = itemView.findViewById(R.id.notification_time_1);
+            profileImage = itemView.findViewById(R.id.profile_image);
         }
     }
 }

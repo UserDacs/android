@@ -10,37 +10,52 @@
 
     <!-- FIXED Search Bar with Back Button -->
     <LinearLayout
-        android:id="@id/title"
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
         android:background="#FFFFFF"
         android:elevation="4dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        tools:ignore="MissingConstraints">
 
 
-
-        <!-- Search Text -->
-        <EditText
+        <!-- Spacer -->
+        <View
             android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1.5" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTopBarTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search ..."
             android:padding="8dp"
-            android:background="@drawable/search_edittext_bg"/>
+            android:text="Notifications"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <!-- Search Button -->
-        <ImageButton
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/ic_search"
-            android:background="@drawable/bg_search_icon"
-            android:contentDescription="Search"
-            android:padding="8dp"
-            app:tint="@null" />
+        <!-- Spacer -->
+        <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
     </LinearLayout>
-
+    <!-- No Data Message -->
+    <TextView
+        android:id="@+id/no_data_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No notifications available"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#999999"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
     <!-- Wrap RecyclerView in ScrollView -->
     <ScrollView
         android:layout_width="match_parent"

@@ -10,36 +10,72 @@
     tools:context=".ui.bookings.BookingsFragment">
     <!-- FIXED Search Bar -->
     <LinearLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
         android:background="#FFFFFF"
         android:elevation="4dp"
-        android:gravity="center_vertical"
-        tools:context=".ui.home.HomeFragment">
+        android:gravity="center_vertical">
 
-        <EditText
+
+        <!-- Spacer -->
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search bookings here"
-            android:padding="8dp"
-            android:background="@drawable/search_edittext_bg"/>
+            android:layout_height="1dp"
+            android:layout_weight="1.5" />
 
-        <ImageButton
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/ic_search"
-            android:background="@drawable/bg_search_icon"
-            android:contentDescription="Search"
+        <!-- Centered Title -->
+        <TextView
+            android:id="@+id/txtUpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking list"
+            android:textColor="#000000"
+            android:textSize="16sp"
             android:padding="8dp"
-            app:tint="@null" />
+            android:textStyle="bold"/>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:elevation="4dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        tools:context=".ui.home.HomeFragment">-->
+
+<!--        <EditText-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="Search bookings here"-->
+<!--            android:padding="8dp"-->
+<!--            android:background="@drawable/search_edittext_bg"/>-->
+
+<!--        <ImageButton-->
+<!--            android:layout_width="44dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:src="@drawable/ic_search"-->
+<!--            android:background="@drawable/bg_search_icon"-->
+<!--            android:contentDescription="Search"-->
+<!--            android:padding="8dp"-->
+<!--            app:tint="@null" />-->
+
+<!--    </LinearLayout>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookingRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" android:layout_marginBottom="57dp" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="57dp" />
 
 </LinearLayout>

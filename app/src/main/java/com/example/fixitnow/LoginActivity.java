@@ -1,7 +1,6 @@
 package com.example.fixitnow;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,29 +20,31 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.example.fixitnow.utils.Constants;
+import com.example.fixitnow.utils.PreferenceManager;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
-    private static final String API_URL = Constants.getFullApiUrl("/api/login");;
-    private static final String PREFS_NAME = "userPrefs";
-    private static final String KEY_TOKEN = "auth_token";
-    private static final String KEY_USER = "user_details";
+    private static final String API_URL = Constants.getFullApiUrl("/api/login");
 
     private EditText emailEditText, passwordEditText;
     private Button loginBtn;
     private TextView signUpText;
 
+    private PreferenceManager preferenceManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Initialize preference manager
+        preferenceManager = new PreferenceManager(this);
+
         // Check if the user is already logged in
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String token = sharedPreferences.getString(KEY_TOKEN, null);
+        String token = preferenceManager.getToken();
         if (token != null) {
-            // If token exists, skip login and go directly to MainActivity
             navigateToMainActivity();
             return;
         }
@@ -71,8 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
@@ -98,12 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                                 String token = response.getJSONObject("data").getString("token");
                                 JSONObject user = response.getJSONObject("data").getJSONObject("user");
 
-                                // Save the token and user details in SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(KEY_TOKEN, token);
-                                editor.putString(KEY_USER, user.toString());  // Store user details as a JSON string
-                                editor.apply();
+                                // Use PreferenceManager to save token and user
+                                preferenceManager.saveToken(token);
+                                preferenceManager.saveUser(user.toString());
 
                                 // Navigate to MainActivity
                                 navigateToMainActivity();
@@ -124,13 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-        // Add the request to the request queue
         requestQueue.add(jsonObjectRequest);
     }
 
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();  // Finish the LoginActivity so the user can't go back to it
+        finish(); // So user can't go back to login
     }
 }

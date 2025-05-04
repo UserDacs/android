@@ -1,8 +1,12 @@
 package com.example.fixitnow;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,6 +29,7 @@ import com.example.fixitnow.ui.dashboard.DashboardFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.example.fixitnow.utils.Constants;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MyAccountActivity extends AppCompatActivity {
     EditText etFirstName, etLastName, etPhone, etEmail, etStreet, etCity, etState, etZip;
@@ -45,41 +50,58 @@ public class MyAccountActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         sharedPreferences = getSharedPreferences("userPrefs", MODE_PRIVATE);
 
         // Find EditTexts from included layouts
         etFirstName = findViewById(R.id.firstNameLayout).findViewById(R.id.editTextField);
+        etFirstName.setHint("First Name");
+
         etLastName = findViewById(R.id.lastNameLayout).findViewById(R.id.editTextField);
+        etLastName.setHint("Last Name");
+
         etPhone = findViewById(R.id.phoneLayout).findViewById(R.id.editTextField);
+        etPhone.setHint("Phone");
+
         etEmail = findViewById(R.id.emailLayout).findViewById(R.id.editTextField);
+        etEmail.setHint("Email");
+
         etStreet = findViewById(R.id.streetLayout).findViewById(R.id.editTextField);
+        etStreet.setHint("Street");
+
         etCity = findViewById(R.id.cityLayout).findViewById(R.id.editTextField);
+        etCity.setHint("City");
+
         etState = findViewById(R.id.stateLayout).findViewById(R.id.editTextField);
+        etState.setHint("State");
+
         etZip = findViewById(R.id.zipLayout).findViewById(R.id.editTextField);
+        etZip.setHint("ZIP Code");
+
 
 
 
         String userJson = sharedPreferences.getString("user_details", null);
-        try {
-            JSONObject userObject = new JSONObject(userJson);
+        if (userJson != null) {
+            try {
+                JSONObject userObject = new JSONObject(userJson);
 
+                _userId = cleanValue(userObject.optString("id", ""));
 
-            _userId = userObject.getString("id");
+                etFirstName.setText(cleanValue(userObject.optString("firstname", "")));
+                etLastName.setText(cleanValue(userObject.optString("lastname", "")));
+                etPhone.setText(cleanValue(userObject.optString("phone", "")));
+                etEmail.setText(cleanValue(userObject.optString("email", "")));
+                etStreet.setText(cleanValue(userObject.optString("address_street", "")));
+                etCity.setText(cleanValue(userObject.optString("address_city", "")));
+                etState.setText(cleanValue(userObject.optString("address_state", "")));
+                etZip.setText(cleanValue(userObject.optString("address_zip_code", "")));
 
-            etFirstName.setText(userObject.getString("firstname"));
-            etLastName.setText(userObject.getString("lastname"));
-            etPhone.setText(userObject.getString("phone"));
-            etEmail.setText(userObject.getString("email"));
-            etStreet.setText(userObject.getString("address_street"));
-            etCity.setText(userObject.getString("address_city"));
-            etState.setText(userObject.getString("address_state"));
-            etZip.setText(userObject.getString("address_zip_code"));
-
-
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+            } catch (JSONException e) {
+                e.printStackTrace(); // Or use Log.e(TAG, "JSON error", e);
+            }
         }
+
 
 //        // Set default or retrieved user data (example)
 //        etFirstName.setText("Juan");
@@ -201,6 +223,8 @@ public class MyAccountActivity extends AppCompatActivity {
         return sharedPreferences.getString("auth_token", null);
     }
 
-
+    private String cleanValue(String value) {
+        return (value == null || value.equalsIgnoreCase("null")) ? "" : value;
+    }
 
 }

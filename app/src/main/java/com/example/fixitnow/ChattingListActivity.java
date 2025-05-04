@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class ChattingListActivity extends AppCompatActivity {
     private List<ChatUser> userList;
     private ChatUserAdapter adapter;
     private SharedPreferences sharedPreferences;
-
+    ImageButton btn_back;
     private static final String API_URL = Constants.getFullApiUrl("/api/v2/message/constac");
     private static final String PREFS_NAME = "userPrefs";
     private static final String KEY_TOKEN = "auth_token";
@@ -56,6 +58,16 @@ public class ChattingListActivity extends AppCompatActivity {
 
         // Fetch messages from the API
         fetchMessages(authToken);
+
+        btn_back = findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                onBackPressed();
+            }
+        });
 
         // Set click listener for the list view
         chatListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

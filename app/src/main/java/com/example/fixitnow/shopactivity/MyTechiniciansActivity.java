@@ -1,6 +1,8 @@
 package com.example.fixitnow.shopactivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class MyTechiniciansActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTechnicians;
+    ImageButton btn_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,16 @@ public class MyTechiniciansActivity extends AppCompatActivity {
         });
 
         recyclerViewTechnicians = findViewById(R.id.recyclerViewTechnicians);
+
+        btn_back = findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                onBackPressed();
+            }
+        });
 
         List<Technician> techList = new ArrayList<>();
         techList.add(new Technician(R.drawable.avatar, "Alex Tan", "★★★★☆", "Plumbing"));

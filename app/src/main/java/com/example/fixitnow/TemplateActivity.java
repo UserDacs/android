@@ -39,11 +39,6 @@ public class TemplateActivity extends AppCompatActivity {
         bookingRecyclerView = findViewById(R.id.bookingRecyclerView);
         bookingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Dummy data
-        bookingList = new ArrayList<>();
-        bookingList.add(new Booking("", "AC Repair", "Juan Dela Cruz", "1 hour", "April 20, 2025 - 10:00 AM", "Pending"));
-        bookingList.add(new Booking("", "Plumbing", "Pedro Santos", "2 hours", "April 19, 2025 - 1:30 PM", "Ongoing"));
-        bookingList.add(new Booking("", "Cleaning", "Maria Lopez", "3 hours", "April 18, 2025 - 9:00 AM", "Done"));
 
         bookingAdapter = new BookingAdapter(this, bookingList);
         bookingRecyclerView.setAdapter(bookingAdapter);

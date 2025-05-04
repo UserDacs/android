@@ -82,6 +82,8 @@ public class ChatActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
+    ImageButton btn_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +93,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
 
-
-
                 emitStopTyping(); // your method
                 editTextMessage.setText("");
                 editTextMessage.clearFocus();
@@ -101,6 +101,16 @@ public class ChatActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(editTextMessage.getWindowToken(), 0);
                 }
                 finish(); // finish the activity (acts like super.onBackPressed())
+            }
+        });
+
+        btn_back = findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                onBackPressed();
             }
         });
 
@@ -121,7 +131,7 @@ public class ChatActivity extends AppCompatActivity {
 
         receiverId = Integer.parseInt(user_id);
 
-        Log.e(TAG, "user_id :::"+ user_id);
+        Log.e(TAG, "img :::"+ img);
 
         ImageView avatarImage = findViewById(R.id.userProfile);
         Glide.with(this)
@@ -253,10 +263,22 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private final Emitter.Listener onReceiveMessage = args -> runOnUiThread(() -> {
+
+        String userJson = sharedPreferences.getString("user_details", null);
+        int MY_USER_ID = 0;
+        if (userJson != null) {
+            try {
+                JSONObject userObj = new JSONObject(userJson);
+                MY_USER_ID = userObj.getInt("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         JSONObject data = (JSONObject) args[0];
         try {
             int receivedId = data.getInt("receiver_id");
-            if (receivedId == senderId) {
+            if (receivedId == MY_USER_ID) {
                 removeTypingIndicator();
                 String msg = data.getString("message");
                 addBubble(msg, false,Constants.getFullApiUrl(data.getString("image_path")));

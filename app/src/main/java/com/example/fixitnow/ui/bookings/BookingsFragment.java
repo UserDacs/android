@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.fixitnow.utils.Constants;
+import com.google.android.gms.maps.MapsInitializer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +49,10 @@ public class BookingsFragment extends Fragment {
 
         binding = FragmentBookingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // ✅ Initialize Google Maps SDK
+        MapsInitializer.initialize(requireContext().getApplicationContext());
+
 
         sharedPreferences = getActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE);
 
@@ -105,21 +110,46 @@ public class BookingsFragment extends Fragment {
                         try {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("service_id");
+
+                            String booking_id = obj.getString("booking_id");
                             String name = obj.getString("service_name");
                             String image = Constants.getFullApiUrl(obj.getString("service_image_path"));
 
                             String fullname = obj.getString("technician_firstname") + " " + obj.getString("technician_lastname");
                             String booking_duration = obj.getString("booking_duration");
+
+                            String booking_address = obj.getString("booking_address");
                             String booking_date = obj.getString("booking_date");
                             String booking_status = obj.getString("booking_status");
 
+                            String lat = obj.getString("booking_lat");
+                            String lon = obj.getString("booking_long");
+                            String customer_id = obj.getString("customer_id");
+
+                            String customer_image = obj.getString("customer_image");
+                            String cus_full_name = obj.getString("fullname");
+
+                            String shop_user_id = obj.getString("shop_user_id");
+                            String shop_user_fullname = obj.getString("shop_user_fullname");
+                            String shop_user_image_path = obj.getString("shop_user_image_path");
+
                             bookingList.add(new Booking(
+                                    shop_user_id,
+                                    shop_user_fullname,
+                                    shop_user_image_path,
+                                    cus_full_name,
+                                    customer_id,
+                                    booking_id,
                                     image,
                                     name,
                                     fullname,
+                                    booking_address,
                                     booking_duration,
                                     booking_date,
-                                    booking_status
+                                    booking_status,
+                                    lat,
+                                    lon,
+                                    customer_image
                             ));
                         } catch (JSONException e) {
                             e.printStackTrace();

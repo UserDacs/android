@@ -55,6 +55,7 @@ import com.example.fixitnow.shopactivity.HistoryActivity;
 import com.example.fixitnow.shopactivity.MyServicesActivity;
 import com.example.fixitnow.shopactivity.MyTechiniciansActivity;
 import com.example.fixitnow.utils.Constants;
+import com.example.fixitnow.utils.PreferenceManager;
 
 public class DashboardFragment extends Fragment {
     private SharedPreferences sharedPreferences;
@@ -85,7 +86,24 @@ public class DashboardFragment extends Fragment {
         CardView idMyTechnician = binding.idMyTechnician;
         CardView idMyServices = binding.idMyServices;
 
+
+
         CardView idLogout = binding.idLogout;
+
+        PreferenceManager preferenceManager = new PreferenceManager(requireContext());
+        String role = preferenceManager.getUserRole();
+
+        Log.d(TAG, "String role: " +role);
+
+        if ("customer".equals(role)) {
+            idHistory.setVisibility(View.GONE);
+            idMyTechnician.setVisibility(View.GONE);
+            idMyServices.setVisibility(View.GONE);
+        }
+
+        if ("provider".equals(role)) {
+            idApplyShop.setVisibility(View.GONE);
+        }
 
         idHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +140,6 @@ public class DashboardFragment extends Fragment {
 
 
 
-
-
         idLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,11 +149,9 @@ public class DashboardFragment extends Fragment {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Step 1: I-clear ang SharedPreferences
-                                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("userPrefs", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.clear();
-                                editor.apply();
+                                // Step 1: I-clear ang SharedPreferences gamit ang PreferenceManager
+                                PreferenceManager preferenceManager = new PreferenceManager(requireContext());
+                                preferenceManager.clear();
 
                                 // Step 2: Redirect to LoginActivity
                                 Intent intent = new Intent(getActivity(), LoginActivity.class);
